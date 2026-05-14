@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pedro Ribeiro Extensions</title>
+    <meta
+      name="description"
+      content="Publisher page for Pedro Ribeiro VS Code extensions, starting with Provenance."
+    >
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Pedro Ribeiro extensions home">
+        <span class="brand-mark">PR</span>
+        <span>
+          <strong>Pedro Ribeiro</strong>
+          <small>VS Code Extensions</small>
+        </span>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#extensions">Extensions</a>
+        <a href="#provenance">Provenance</a>
+        <a href="#configuration">Configuration</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow">Publisher page</p>
+          <h1 id="hero-title">Extensions that carry engineering intent with the code.</h1>
+          <p class="lede">
+            Provenance is the first extension from Pedro Ribeiro: a lightweight
+            annotation convention and VS Code experience for requirement,
+            authorship, and compliance traceability.
+          </p>
+          <div class="hero-actions" aria-label="Primary actions">
+            <a class="button primary" href="#provenance">View Provenance</a>
+            <a class="button secondary" href="#annotation-formats">Annotation formats</a>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="Provenance extension preview">
+          <div class="window">
+            <div class="window-bar">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <div class="editor-grid">
+              <aside class="activity-bar" aria-hidden="true">
+                <span class="chip ai">AI</span>
+                <span class="chip human">HU</span>
+                <span class="chip mixed">MX</span>
+              </aside>
+              <div class="editor">
+                <div class="line"><b>1</b><code># pvnc.req: USER-1092</code></div>
+                <div class="line"><b>2</b><code># pvnc.reason: Sugar threshold added</code></div>
+                <div class="line guard"><b>3</b><code># pvnc.dnc: HMRC compliance</code></div>
+                <div class="line"><b>4</b><code># pvnc.source: ai.claude</code></div>
+                <div class="line"><b>5</b><code>if order.category == "food" and order.sugar_content &lt;= 2:</code></div>
+                <div class="tooltip">
+                  <strong>Do-not-change</strong>
+                  <span>Proceed with intention: HMRC compliance</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="extensions" class="section" aria-labelledby="extensions-title">
+        <div class="section-heading">
+          <p class="eyebrow">Extensions</p>
+          <h2 id="extensions-title">Published extensions</h2>
+        </div>
+        <article class="extension-card" id="provenance">
+          <div class="extension-icon" aria-hidden="true">P</div>
+          <div class="extension-body">
+            <div class="extension-title-row">
+              <div>
+                <h3>Provenance</h3>
+                <p>Requirement and compliance traceability directly in code.</p>
+              </div>
+              <span class="status-pill">First extension</span>
+            </div>
+            <p>
+              Embed structured annotations near the code they explain, then use
+              the VS Code extension to highlight, search, aggregate, and warn on
+              important traceability metadata.
+            </p>
+            <div class="meta-grid" aria-label="Extension summary">
+              <span><strong>Formats</strong> Block and inline</span>
+              <span><strong>Authorship</strong> Human, AI, unknown</span>
+              <span><strong>Guardrails</strong> Do-not-change warnings</span>
+              <span><strong>Scope</strong> Parser-agnostic comments</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section two-column" aria-labelledby="why-title">
+        <div>
+          <p class="eyebrow">Why it exists</p>
+          <h2 id="why-title">Code needs institutional memory at the point of use.</h2>
+        </div>
+        <div class="text-stack">
+          <p>
+            When an LLM helps with a codebase it has no institutional memory. It
+            cannot know why a piece of code was written, what requirement drove
+            it, or why an apparently redundant condition must not be removed.
+          </p>
+          <p>
+            Provenance keeps that context close to the implementation with a
+            lightweight convention that works in any language with comments.
+          </p>
+        </div>
+      </section>
+
+      <section id="annotation-formats" class="section" aria-labelledby="formats-title">
+        <div class="section-heading">
+          <p class="eyebrow">Annotation formats</p>
+          <h2 id="formats-title">Two formats, one parser.</h2>
+        </div>
+        <div class="format-grid">
+          <article class="format-panel">
+            <h3>Block format</h3>
+            <p>
+              Use <code>&lt;provenance&gt;</code> or the short alias
+              <code>&lt;pvnc&gt;</code> in a doc comment or string literal.
+              Each block is independent and can be stacked into a timeline.
+            </p>
+            <pre><code>&lt;pvnc&gt;
+  requirement: USER-1092 (jira, 2025-Q3)
+  reason: Sugar threshold added
+  do-not-change: HMRC compliance
+  source: ai.claude
+&lt;/pvnc&gt;</code></pre>
+          </article>
+          <article class="format-panel">
+            <h3>Inline format</h3>
+            <p>
+              Use one comment line per key. Consecutive inline runs separated
+              only by blank lines are grouped into a single annotation.
+            </p>
+            <pre><code># pvnc.req: USER-1092
+# pvnc.reason: High-sugar foods excluded
+# pvnc.dnc: HMRC compliance
+# pvnc.source: ai.claude</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="features-title">
+        <div class="section-heading">
+          <p class="eyebrow">VS Code experience</p>
+          <h2 id="features-title">Traceability that is visible and searchable.</h2>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <h3>Syntax highlighting</h3>
+            <p>Keys, requirement IDs, reason text, sources, and guard entries render distinctly.</p>
+          </article>
+          <article>
+            <h3>Authorship metric</h3>
+            <p>The Provenance panel aggregates human, AI-authored, and unknown-source annotations.</p>
+          </article>
+          <article>
+            <h3>Gutter icons</h3>
+            <p>Annotated lines show authorship markers: AI, human, mixed, or unspecified.</p>
+          </article>
+          <article>
+            <h3>Explorer badges</h3>
+            <p>Opt-in file badges appear for opened, edited, or explicitly analyzed files.</p>
+          </article>
+          <article>
+            <h3>Hover tooltips</h3>
+            <p>Hovering surfaces full annotation content, including cross-references and timelines.</p>
+          </article>
+          <article>
+            <h3>Do-not-change warnings</h3>
+            <p>Guarded edits show a non-blocking warning so compliance-sensitive logic is intentional.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section two-column" aria-labelledby="keys-title">
+        <div>
+          <p class="eyebrow">Key reference</p>
+          <h2 id="keys-title">Fields supported by Provenance.</h2>
+        </div>
+        <div class="table-wrap" role="region" aria-label="Provenance key reference">
+          <table>
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Inline</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>requirement</td><td>pvnc.req</td><td>Work item that drove this code</td></tr>
+              <tr><td>reason</td><td>pvnc.reason</td><td>Human-readable explanation</td></tr>
+              <tr><td>source</td><td>pvnc.source</td><td>Authorship: human or AI assistant</td></tr>
+              <tr><td>invariant</td><td>pvnc.inv</td><td>Rule that must never be violated</td></tr>
+              <tr><td>do-not-change</td><td>pvnc.dnc</td><td>Load-bearing complexity guard</td></tr>
+              <tr><td>see-also</td><td>pvnc.see</td><td>Related files or ticket IDs</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="configuration" class="section config-section" aria-labelledby="config-title">
+        <div class="section-heading">
+          <p class="eyebrow">Configuration</p>
+          <h2 id="config-title">Workspace settings.</h2>
+        </div>
+        <pre><code>{
+  "provenance.gutterIcons": true,
+  "provenance.explorerFileBadges": false,
+  "provenance.warnOnDoNotChange": true,
+  "provenance.guardedRangeLines": 30,
+  "provenance.ticketSystems": {
+    "jira": { "baseUrl": "https://yourcompany.atlassian.net", "apiToken": "" },
+    "ado": { "organisation": "yourorg", "pat": "" },
+    "github": { "owner": "your-org", "repo": "your-repo", "token": "" }
+  }
+}</code></pre>
+      </section>
+
+      <section class="section support-band" aria-labelledby="languages-title">
+        <div>
+          <p class="eyebrow">Supported languages</p>
+          <h2 id="languages-title">Parser-agnostic by design.</h2>
+          <p>
+            Python, TypeScript, JavaScript, Java, C#, C/C++, Rust, Go, Ruby,
+            PHP, Kotlin, Swift, and any other language with line or block comments.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>MIT &copy; 2026 Pedro Ribeiro</span>
+      <a href="#top">Back to top</a>
+    </footer>
+  </body>
+</html>
