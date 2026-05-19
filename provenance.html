@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Provenance — Pedro Ribeiro</title>
+    <meta
+      name="description"
+      content="Provenance: a VS Code extension for requirement, authorship, and compliance traceability in code. Includes Code Guard for CI-enforced protection of critical regions."
+    >
+    <link rel="canonical" href="https://etpedror.com/provenance.html">
+    <link rel="stylesheet" href="styles.css">
+    <script>
+      (function () {
+        var t = localStorage.getItem('theme');
+        if (t) document.documentElement.setAttribute('data-theme', t);
+      }());
+    </script>
+  </head>
+  <body>
+    <header class="site-header">
+      <a class="brand" href="index.html" aria-label="Pedro Ribeiro home">
+        <span class="brand-mark">PR</span>
+        <strong>Pedro Ribeiro</strong>
+      </a>
+      <nav aria-label="Primary navigation">
+        <a href="#provenance">Extension</a>
+        <a href="#annotation-formats">Formats</a>
+        <a href="#code-guard">Code Guard</a>
+        <a href="#configuration">Configuration</a>
+        <a href="https://marketplace.visualstudio.com/items?itemName=etpedror.provenance" target="_blank" rel="noopener noreferrer">Marketplace</a>
+        <a href="https://github.com/etpedror/provenance-vsce" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <button class="theme-toggle" id="theme-toggle" aria-label="Switch to dark mode">
+          <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+          </svg>
+          <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"/>
+            <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+            <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section id="provenance" class="section" aria-labelledby="provenance-title">
+        <div class="section-heading">
+          <p class="eyebrow">VS Code Extension</p>
+          <h2 id="provenance-title">Provenance</h2>
+        </div>
+        <article class="extension-card">
+          <div class="extension-icon" aria-hidden="true">P</div>
+          <div class="extension-body">
+            <div class="extension-title-row">
+              <div>
+                <h3>Requirement, authorship, and compliance traceability in code.</h3>
+                <p>With Code Guard for enforced protection of critical regions.</p>
+              </div>
+              <span class="status-pill">v1.1.0</span>
+            </div>
+            <p>
+              Embed structured annotations near the code they explain. The VS Code
+              extension makes them visible, searchable, and linked to live ticket
+              data. Code Guard adds CI-enforced fences around regions that must
+              never change, with a formal two-commit removal workflow.
+            </p>
+            <div class="extension-links">
+              <a href="https://marketplace.visualstudio.com/items?itemName=etpedror.provenance" target="_blank" rel="noopener noreferrer">VS Code Marketplace</a>
+              <a href="https://github.com/etpedror/provenance-vsce" target="_blank" rel="noopener noreferrer">View on GitHub</a>
+            </div>
+            <div class="meta-grid" aria-label="Extension summary">
+              <span><strong>Formats</strong> Block and inline</span>
+              <span><strong>Authorship</strong> Human, AI, unknown</span>
+              <span><strong>Code Guard</strong> CI-enforced regions</span>
+              <span><strong>Scope</strong> Parser-agnostic</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="section two-column" aria-labelledby="why-title">
+        <div>
+          <p class="eyebrow">Why it exists</p>
+          <h2 id="why-title">Code needs institutional memory at the point of use.</h2>
+        </div>
+        <div class="text-stack">
+          <p>
+            When an LLM helps with a codebase it has no institutional memory. It
+            cannot know why a piece of code was written, what requirement drove
+            it, or why an apparently redundant condition must not be removed.
+          </p>
+          <p>
+            Provenance keeps that context close to the implementation with a
+            lightweight convention that works in any language with comments.
+          </p>
+        </div>
+      </section>
+
+      <section id="annotation-formats" class="section" aria-labelledby="formats-title">
+        <div class="section-heading">
+          <p class="eyebrow">Annotation formats</p>
+          <h2 id="formats-title">Two formats, one parser.</h2>
+        </div>
+        <div class="format-grid">
+          <article class="format-panel">
+            <h3>Block format</h3>
+            <p>
+              Use <code>&lt;provenance&gt;</code> or the short alias
+              <code>&lt;pvnc&gt;</code> in a doc comment or string literal.
+              Ticket system name is the key. Stack multiple blocks to record the
+              full change history.
+            </p>
+            <pre><code>&lt;pvnc&gt;
+  jira: USER-1092 (2025-Q3)
+  reason: Sugar threshold added — high-sugar foods excluded
+  do-not-change: HMRC compliance — do not simplify
+  source: ai.claude
+&lt;/pvnc&gt;</code></pre>
+          </article>
+          <article class="format-panel">
+            <h3>Inline format</h3>
+            <p>
+              One comment line per key — no wrapper needed. Consecutive runs
+              separated only by blank lines are grouped into a single annotation.
+            </p>
+            <pre><code># pvnc.jira: USER-1092
+# pvnc.reason: High-sugar foods excluded
+# pvnc.dnc: HMRC compliance — audited 2024-03
+# pvnc.source: ai.claude</code></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="code-guard" class="section" aria-labelledby="codeguard-title">
+        <div class="section-heading">
+          <p class="eyebrow">Code Guard</p>
+          <h2 id="codeguard-title">Structural fences for regions that must not change.</h2>
+        </div>
+        <div class="text-stack" style="max-width: 820px; margin-bottom: 28px;">
+          <p>
+            <code>do-not-change:</code> is an advisory annotation — fuzzy scope,
+            no enforcement. Code Guard adds explicit <code>guard_start</code> /
+            <code>guard_end</code> boundaries, CI enforcement on every pull
+            request, and a mandatory two-commit removal workflow that creates an
+            audit trail before any guarded region can be modified.
+          </p>
+        </div>
+        <div class="format-grid">
+          <article class="format-panel">
+            <h3>Marking a guard</h3>
+            <p>Place the marker immediately after the annotating <code>&lt;pvnc&gt;</code> block. Block IDs are arbitrary — make them meaningful.</p>
+            <pre><code># pvnc.guard_start: block-hmrc-001
+if order.category == "food" and \
+   order.sugar_content &lt;= 2:
+    tax = 0.0
+# pvnc.guard_end: block-hmrc-001</code></pre>
+          </article>
+          <article class="format-panel">
+            <h3>Removing a guard (two-commit workflow)</h3>
+            <p>Commit a removal declaration first, then make the change in a second commit. The CI check enforces this order.</p>
+            <pre><code># pvnc.guard_removed: block-hmrc-001 \
+#   : New HMRC directive 2026-Q2 supersedes</code></pre>
+            <p style="margin-top: 16px;">Run <strong>Provenance: Remove guard</strong> from the Command Palette to scaffold the declaration and commit message automatically.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section" aria-labelledby="features-title">
+        <div class="section-heading">
+          <p class="eyebrow">VS Code experience</p>
+          <h2 id="features-title">Traceability that is visible and searchable.</h2>
+        </div>
+        <div class="feature-grid">
+          <article>
+            <h3>Hover tooltips</h3>
+            <p>Hovering an annotation shows its full content with live ticket title and status — fetched from GitHub, Jira, ADO, or Linear without leaving the editor.</p>
+          </article>
+          <article>
+            <h3>Gutter icons</h3>
+            <p>Every annotated line shows a colour-coded icon: teal for AI, orange for human, amber shield for guard markers. Malformed guards show a warning label.</p>
+          </article>
+          <article>
+            <h3>Code Guard region tint</h3>
+            <p>Lines inside a guarded region get a configurable background tint. Editing any interior line triggers a warning with a scaffold removal button.</p>
+          </article>
+          <article>
+            <h3>Do-not-change warnings</h3>
+            <p>Editing code after a <code>do-not-change:</code> annotation shows a non-blocking warning. The field is highlighted in red in the hover tooltip.</p>
+          </article>
+          <article>
+            <h3>Provenance panel</h3>
+            <p>The sidebar aggregates authorship metrics, guard density, and a searchable, filterable list of every annotation across the workspace.</p>
+          </article>
+          <article>
+            <h3>Contribution log</h3>
+            <p>A JSONL log of every AI and human contribution travels with the repo — the full project history is available to new cloners without external tooling.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section two-column" aria-labelledby="keys-title">
+        <div>
+          <p class="eyebrow">Key reference</p>
+          <h2 id="keys-title">Fields supported by Provenance.</h2>
+        </div>
+        <div class="table-wrap" role="region" aria-label="Provenance key reference">
+          <table>
+            <thead>
+              <tr>
+                <th>Field</th>
+                <th>Inline</th>
+                <th>Purpose</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>github: · jira: · ado: · …</td><td>pvnc.github: · pvnc.jira: · …</td><td>Work item or page — any configured system name</td></tr>
+              <tr><td>reason</td><td>pvnc.reason</td><td>Human-readable explanation</td></tr>
+              <tr><td>source</td><td>pvnc.source</td><td>Authorship: human, ai.claude, ai.copilot, …</td></tr>
+              <tr><td>invariant</td><td>pvnc.inv</td><td>Rule that must never be violated</td></tr>
+              <tr><td>do-not-change</td><td>pvnc.dnc</td><td>Advisory guard — triggers an edit warning</td></tr>
+              <tr><td>see-also</td><td>pvnc.see</td><td>Related files or IDs (comma-separated)</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="configuration" class="section config-section" aria-labelledby="config-title">
+        <div class="section-heading">
+          <p class="eyebrow">Configuration</p>
+          <h2 id="config-title">Workspace settings.</h2>
+        </div>
+        <pre><code>{
+  "provenance.gutterIcons": true,
+  "provenance.warnOnDoNotChange": true,
+  "provenance.guardedRangeLines": 30,
+
+  "provenance.codeGuard.enabled": true,
+  "provenance.codeGuard.gutterHighlight": true,
+  "provenance.codeGuard.regionTint": true,
+  "provenance.codeGuard.regionTintColour": "#ff000011",
+  "provenance.codeGuard.warnOnEdit": true,
+  "provenance.codeGuard.ciStrictMode": true
+}</code></pre>
+        <p style="color: var(--muted); font-size: 0.92rem; margin-top: 16px;">
+          Ticket system credentials (PATs, tokens) are stored in VS Code's encrypted
+          secret storage — never in settings files. Use
+          <strong>Provenance: Set up workspace config</strong> from the Command Palette
+          to configure ticket integration interactively.
+        </p>
+      </section>
+
+      <section class="section support-band" aria-labelledby="languages-title">
+        <div>
+          <p class="eyebrow">Supported languages</p>
+          <h2 id="languages-title">Parser-agnostic by design.</h2>
+          <p>
+            Python, TypeScript, JavaScript, Java, C#, C/C++, Rust, Go, Ruby,
+            PHP, Kotlin, Swift, and any other language with line or block comments.
+          </p>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <span>MIT &copy; 2026 Pedro Ribeiro</span>
+      <div class="footer-links">
+        <a href="./">etpedror.com</a>
+        <a href="https://www.linkedin.com/in/etpedror/" target="_blank" rel="me noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/sponsors/etpedror" target="_blank" rel="noopener noreferrer">Sponsor</a>
+        <a href="#top">Back to top</a>
+      </div>
+    </footer>
+    <script>
+      (function () {
+        function effectiveTheme() {
+          return document.documentElement.getAttribute('data-theme') ||
+            (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        }
+
+        function applyLabel(btn, theme) {
+          btn.setAttribute('aria-label', theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode');
+        }
+
+        var btn = document.getElementById('theme-toggle');
+        applyLabel(btn, effectiveTheme());
+
+        btn.addEventListener('click', function () {
+          var next = effectiveTheme() === 'dark' ? 'light' : 'dark';
+          document.documentElement.setAttribute('data-theme', next);
+          localStorage.setItem('theme', next);
+          applyLabel(btn, next);
+        });
+      }());
+    </script>
+  </body>
+</html>
